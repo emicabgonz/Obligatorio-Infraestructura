@@ -1,0 +1,7 @@
+admin:admin
+Emiliano:1234
+Quintana:1234
+Eugenia:9876
+Pepe:9876
+Juani:1234
+Maru:M55243865

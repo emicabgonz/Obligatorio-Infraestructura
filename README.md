@@ -1,2 +1,1 @@
-# Obligatorio-Infraestructura
-por favor funciona
+# ObligatorioInfra
