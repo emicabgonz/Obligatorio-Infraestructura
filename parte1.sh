@@ -161,6 +161,33 @@ filtrar_prod(){
 	fi
 }
 
+crear_repor(){
+	if [ ! -f "$SESSION_FILE" ]; then
+		echo "Se debe iniciar sesion"
+		return
+	fi
+	if [ ! -s "productos.txt" ]; then
+		echo "No hay productos cargados"
+		return
+	fi
+	mkdir -p Datos
+	Archivos="Datos/datos.csv"
+	echo "Codigo,Tipo,Modelo,Descripcion,Cantidad,Precio" > "$Archivos"
+
+	while IFS=" - " read -r codigo tipo modelo descripcion cantidad precio; do
+		codigo=$(echo "$codigo" | tr -cd '[:alnum:]')
+		tipo=$(echo "$tipo" | tr -cd '[:alnum:]')
+		modelo=$(echo "$modelo" |  tr -cd '[:alnum:]')
+		descripcion=$(echo "$descripcion" | tr -cd '[:alnum:]')
+		cantidad=$(echo "$cantidad" | tr -cd '[:digit:]')
+		precio_num=$(echo "$precio" | tr -cd '[:digit:]')
+		echo "$codigo,$tipo,$modelo,$descripcion,$cantidad,$precio_num" >> "$Archivos"
+	done < productos.txt
+
+	echo "Reporte generado correctamente en '$Archivos'"
+}
+
+
 login(){
 	echo
 	echo "Iniciar Sesion"
@@ -196,7 +223,8 @@ while true; do
 	echo "5) Agregar Producto"
 	echo "6) Vender Producto"
 	echo "7) Filtrar Productos"
-	echo "8) Salir"
+	echo "8) Crear Reporte CSV"
+	echo "9) Salir"
 	echo "-----------------------"
 	echo
 	read opcion
@@ -209,7 +237,8 @@ while true; do
 		5) ingresar_producto ;;
 		6) vender_prod ;;
 		7) filtrar_prod ;;
-		8) echo "Saliendo..."; break ;;
+		8) crear_repor ;;
+		9) echo "Saliendo..."; break ;;
 		*) echo "Opcion invalida" ;;
 	esac
 done
