@@ -1,6 +1,9 @@
 with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Numerics.Float_Random; use Ada.Numerics.Float_Random;
 
 procedure Parte3 is
+
+   Gen : Generator;
 
 
    task Ordenie is
@@ -139,17 +142,17 @@ procedure Parte3 is
          Pasillo.Entrar;
          Vacunacion.Entrar(Mi_Id, M);
          Pasillo.Salir;
-         delay 2.0;
+         delay Duration(Random(Gen) * 2.0);
          Pasillo.Entrar;
          Vacunacion.Salir(Mi_Id, M);
          Pasillo.Salir;
 
          Ordenie.Entrar(Mi_Id);
-         delay 3.0;
+         delay Duration(Random(Gen) * 3.0);
          Ordenie.Salir(Mi_Id);
       else
          Ordenie.Entrar(Mi_Id);
-         delay 3.0;
+         delay Duration(Random(Gen) * 3.0);
          Ordenie.Salir(Mi_Id);
       end if;
 
@@ -160,6 +163,7 @@ procedure Parte3 is
    Fin : Boolean := False;
 
 begin
+   Reset(Gen);
    Put_Line("=== INICIO SIMULACIÓN TAMBO ===");
 
    for I in 1..100 loop
