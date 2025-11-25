@@ -3,12 +3,12 @@ with Ada.Text_IO; use Ada.Text_IO;
 procedure Parte3 is
 
 
-   task Ordene is
+   task Ordenie is
       entry Entrar(Id : Integer);
       entry Salir(Id : Integer);
-   end Ordene;
+   end Ordenie;
 
-   task body Ordene is
+   task body Ordenie is
       Dentro : Integer := 0;
    begin
       loop
@@ -27,7 +27,7 @@ procedure Parte3 is
             terminate;
          end select;
       end loop;
-   end Ordene;
+   end Ordenie;
 
 
 
@@ -144,13 +144,13 @@ procedure Parte3 is
          Vacunacion.Salir(Mi_Id, M);
          Pasillo.Salir;
 
-         Ordene.Entrar(Mi_Id);
+         Ordenie.Entrar(Mi_Id);
          delay 3.0;
-         Ordene.Salir(Mi_Id);
+         Ordenie.Salir(Mi_Id);
       else
-         Ordene.Entrar(Mi_Id);
+         Ordenie.Entrar(Mi_Id);
          delay 3.0;
-         Ordene.Salir(Mi_Id);
+         Ordenie.Salir(Mi_Id);
       end if;
 
       Camiones.Subir(Mi_Id);
