@@ -1,0 +1,40 @@
+*2
+$6
+SELECT
+$1
+0
+*3
+$3
+set
+$5
+tasks
+$797
+[{"id":"7a4e0a03-5523-4233-82ae-70bcffb16e46","title":"Estudiar concurrencia y paralelismo","description":"Diferencias entre hilos y procesos en sistemas multicore","priority":"alta","status":"pendiente","category":"conceptos","created":"2025-11-25T23:08:59.573Z"},{"id":"47008aa7-d940-47cd-b992-4ed49a76d697","title":"Implementar algoritmo de planificación Round Robin","description":"Crear simulador de planificación con quantum de 4ms","priority":"media","status":"en-progreso","category":"práctica","created":"2025-11-25T23:08:59.574Z"},{"id":"349f0334-754d-4ed6-8961-18810ac668c5","title":"Investigar sistemas de archivos","description":"Comparar rendimiento entre ext4, NTFS y APFS","priority":"baja","status":"pendiente","category":"investigación","created":"2025-11-25T23:08:59.574Z"}]
+*3
+$3
+set
+$5
+tasks
+$1024
+[{"id":"7a4e0a03-5523-4233-82ae-70bcffb16e46","title":"Estudiar concurrencia y paralelismo","description":"Diferencias entre hilos y procesos en sistemas multicore","priority":"alta","status":"pendiente","category":"conceptos","created":"2025-11-25T23:08:59.573Z"},{"id":"47008aa7-d940-47cd-b992-4ed49a76d697","title":"Implementar algoritmo de planificación Round Robin","description":"Crear simulador de planificación con quantum de 4ms","priority":"media","status":"en-progreso","category":"práctica","created":"2025-11-25T23:08:59.574Z"},{"id":"349f0334-754d-4ed6-8961-18810ac668c5","title":"Investigar sistemas de archivos","description":"Comparar rendimiento entre ext4, NTFS y APFS","priority":"baja","status":"pendiente","category":"investigación","created":"2025-11-25T23:08:59.574Z"},{"id":"a2d3d4a3-a8a4-4b27-b969-ca4cc3302f2d","title":"Estudiar infraestructura","description":"Hay que estudiar es a dar","priority":"alta","status":"pendiente","category":"investigación","created":"2025-11-25T23:10:26.815Z"}]
+*3
+$3
+set
+$5
+tasks
+$1063
+[{"id":"7a4e0a03-5523-4233-82ae-70bcffb16e46","title":"Estudiar concurrencia y paralelismo","description":"Diferencias entre hilos y procesos en sistemas multicore","priority":"alta","status":"pendiente","category":"conceptos","created":"2025-11-25T23:08:59.573Z"},{"id":"47008aa7-d940-47cd-b992-4ed49a76d697","title":"Implementar algoritmo de planificación Round Robin","description":"Crear simulador de planificación con quantum de 4ms","priority":"media","status":"en-progreso","category":"práctica","created":"2025-11-25T23:08:59.574Z"},{"id":"349f0334-754d-4ed6-8961-18810ac668c5","title":"Investigar sistemas de archivos","description":"Comparar rendimiento entre ext4, NTFS y APFS","priority":"baja","status":"pendiente","category":"investigación","created":"2025-11-25T23:08:59.574Z"},{"id":"a2d3d4a3-a8a4-4b27-b969-ca4cc3302f2d","title":"Estudiar infraestructura","description":"Hay que estudiar es a dar","priority":"alta","status":"en-progreso","category":"investigación","created":"2025-11-25T23:10:26.815Z","updated":"2025-11-25T23:10:55.688Z"}]
+*3
+$3
+set
+$5
+tasks
+$1062
+[{"id":"7a4e0a03-5523-4233-82ae-70bcffb16e46","title":"Estudiar concurrencia y paralelismo","description":"Diferencias entre hilos y procesos en sistemas multicore","priority":"alta","status":"pendiente","category":"conceptos","created":"2025-11-25T23:08:59.573Z"},{"id":"47008aa7-d940-47cd-b992-4ed49a76d697","title":"Implementar algoritmo de planificación Round Robin","description":"Crear simulador de planificación con quantum de 4ms","priority":"media","status":"en-progreso","category":"práctica","created":"2025-11-25T23:08:59.574Z"},{"id":"349f0334-754d-4ed6-8961-18810ac668c5","title":"Investigar sistemas de archivos","description":"Comparar rendimiento entre ext4, NTFS y APFS","priority":"baja","status":"pendiente","category":"investigación","created":"2025-11-25T23:08:59.574Z"},{"id":"a2d3d4a3-a8a4-4b27-b969-ca4cc3302f2d","title":"Estudiar infraestructura","description":"Hay que estudiar es a dar","priority":"alta","status":"completada","category":"investigación","created":"2025-11-25T23:10:26.815Z","updated":"2025-11-25T23:10:56.820Z"}]
+*3
+$3
+set
+$5
+tasks
+$1061
+[{"id":"7a4e0a03-5523-4233-82ae-70bcffb16e46","title":"Estudiar concurrencia y paralelismo","description":"Diferencias entre hilos y procesos en sistemas multicore","priority":"alta","status":"pendiente","category":"conceptos","created":"2025-11-25T23:08:59.573Z"},{"id":"47008aa7-d940-47cd-b992-4ed49a76d697","title":"Implementar algoritmo de planificación Round Robin","description":"Crear simulador de planificación con quantum de 4ms","priority":"media","status":"en-progreso","category":"práctica","created":"2025-11-25T23:08:59.574Z"},{"id":"349f0334-754d-4ed6-8961-18810ac668c5","title":"Investigar sistemas de archivos","description":"Comparar rendimiento entre ext4, NTFS y APFS","priority":"baja","status":"pendiente","category":"investigación","created":"2025-11-25T23:08:59.574Z"},{"id":"a2d3d4a3-a8a4-4b27-b969-ca4cc3302f2d","title":"Estudiar infraestructura","description":"Hay que estudiar es a dar","priority":"alta","status":"pendiente","category":"investigación","created":"2025-11-25T23:10:26.815Z","updated":"2025-11-25T23:10:57.820Z"}]

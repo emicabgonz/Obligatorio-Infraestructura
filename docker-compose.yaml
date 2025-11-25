@@ -1,0 +1,155 @@
+# Definición de servicios
+services:
+  # ============================================
+  # Servicio: Nginx (Balanceador de Carga)
+  # ============================================
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    container_name: nginx-load-balancer
+    hostname: nginx-lb
+    ports:
+      - "80:80"  # Puerto expuesto externamente
+    depends_on:
+      - web
+    networks:
+      - frontend
+      - backend
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
+        reservations:
+          cpus: '0.25'
+          memory: 128M
+
+  # ============================================
+  # Servicio: Aplicación Web Node.js (Escalable)
+  # ============================================
+  web:
+    build:
+      context: ./web
+      dockerfile: Dockerfile.simple
+    # No asignamos container_name para permitir escalado
+    hostname: web-app
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    depends_on:
+      - redis
+    networks:
+      - backend
+    restart: unless-stopped
+    deploy:
+      replicas: 3  # Número de instancias (escalado horizontal)
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+      update_config:
+        parallelism: 1
+        delay: 10s
+        order: start-first
+        failure_action: rollback
+      rollback_config:
+        parallelism: 1
+        delay: 5s
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+
+  # ============================================
+  # Servicio: Redis (Base de Datos)
+  # ============================================
+  redis:
+    image: redis:7-alpine
+    container_name: redis-database
+    hostname: redis-server
+    command: >
+      redis-server
+      --appendonly yes
+      --appendfsync everysec
+      --save 60 1000
+      --save 300 100
+      --save 900 1
+    volumes:
+      - redis-data:/data
+      - redis-logs:/var/log/redis
+    networks:
+      - backend
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 15s
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+
+# ============================================
+# Definición de Redes
+# ============================================
+networks:
+  # Red frontend: Comunicación entre Nginx y aplicaciones web
+  frontend:
+    driver: bridge
+    name: frontend-network
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.20.0.0/16
+    driver_opts:
+      com.docker.network.bridge.name: br-frontend
+
+  # Red backend: Comunicación entre aplicaciones web y Redis
+  backend:
+    driver: bridge
+    name: backend-network
+    internal: false  # Permitir salida a Internet si es necesario
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.21.0.0/16
+    driver_opts:
+      com.docker.network.bridge.name: br-backend
+
+# ============================================
+# Definición de Volúmenes
+# ============================================
+volumes:
+  # Volumen para persistencia de datos de Redis
+  redis-data:
+    driver: local
+    name: redis-persistent-data
+    driver_opts:
+      type: none
+      o: bind
+      device: ./data/redis
+
+  # Volumen para logs de Redis
+  redis-logs:
+    driver: local
+    name: redis-logs

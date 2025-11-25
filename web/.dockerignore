@@ -1,0 +1,55 @@
+# Dependencias
+node_modules
+npm-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+
+# Archivos de entorno
+.env
+.env.local
+.env.*.local
+
+# Archivos de Git
+.git
+.gitignore
+.gitattributes
+
+# Archivos de IDE y editores
+.vscode
+.idea
+*.swp
+*.swo
+*~
+.DS_Store
+*.sublime-*
+
+# Archivos de testing
+coverage
+.nyc_output
+*.test.js
+*.spec.js
+test/
+tests/
+
+# Documentación
+README.md
+*.md
+docs/
+
+# Archivos temporales
+tmp
+temp
+*.tmp
+*.log
+*.pid
+
+# Archivos de Docker
+Dockerfile
+.dockerignore
+docker-compose*.yml
+docker-compose*.yaml
+
+# Archivos de sistema
+Thumbs.db
+ehthumbs.db
