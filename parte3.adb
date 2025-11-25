@@ -123,7 +123,7 @@ procedure Parte3 is
 
 
 
-   -- Tarea Vaca
+
    task type Vaca is
       entry Iniciar(Id : Integer);
    end Vaca;
@@ -136,7 +136,6 @@ procedure Parte3 is
       end Iniciar;
 
       if (Mi_Id mod 2) = 0 then
-         -- Opción A: VACUNARSE primero, luego puede ORDEÑARSE
          Pasillo.Entrar;
          Vacunacion.Entrar(Mi_Id, M);
          Pasillo.Salir;
@@ -145,19 +144,15 @@ procedure Parte3 is
          Vacunacion.Salir(Mi_Id, M);
          Pasillo.Salir;
 
-         -- Como se vacunó, ahora puede ordeñarse
          Ordene.Entrar(Mi_Id);
          delay 3.0;
          Ordene.Salir(Mi_Id);
       else
-         -- Opción B: ORDEÑARSE primero, NO puede vacunarse después
          Ordene.Entrar(Mi_Id);
          delay 3.0;
          Ordene.Salir(Mi_Id);
-         -- No se vacuna, va directo al camión
       end if;
 
-      -- Ir al CAMIÓN
       Camiones.Subir(Mi_Id);
    end Vaca;
 
