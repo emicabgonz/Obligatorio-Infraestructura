@@ -1,8 +1,4 @@
-# Definición de servicios
 services:
-  # ============================================
-  # Servicio: Nginx (Balanceador de Carga)
-  # ============================================
   nginx:
     build:
       context: ./nginx
@@ -10,7 +6,7 @@ services:
     container_name: nginx-load-balancer
     hostname: nginx-lb
     ports:
-      - "80:80"  # Puerto expuesto externamente
+      - "80:80"  
     depends_on:
       - web
     networks:
@@ -32,14 +28,12 @@ services:
           cpus: '0.25'
           memory: 128M
 
-  # ============================================
-  # Servicio: Aplicación Web Node.js (Escalable)
-  # ============================================
+  
   web:
     build:
       context: ./web
       dockerfile: Dockerfile.simple
-    # No asignamos container_name para permitir escalado
+    
     hostname: web-app
     environment:
       - NODE_ENV=production
@@ -52,7 +46,7 @@ services:
       - backend
     restart: unless-stopped
     deploy:
-      replicas: 3  # Número de instancias (escalado horizontal)
+      replicas: 3  
       restart_policy:
         condition: on-failure
         delay: 5s
@@ -74,9 +68,7 @@ services:
           cpus: '0.25'
           memory: 256M
 
-  # ============================================
-  # Servicio: Redis (Base de Datos)
-  # ============================================
+
   redis:
     image: redis:7-alpine
     container_name: redis-database
@@ -109,11 +101,9 @@ services:
           cpus: '0.25'
           memory: 256M
 
-# ============================================
-# Definición de Redes
-# ============================================
+
 networks:
-  # Red frontend: Comunicación entre Nginx y aplicaciones web
+  
   frontend:
     driver: bridge
     name: frontend-network
@@ -124,11 +114,11 @@ networks:
     driver_opts:
       com.docker.network.bridge.name: br-frontend
 
-  # Red backend: Comunicación entre aplicaciones web y Redis
+  
   backend:
     driver: bridge
     name: backend-network
-    internal: false  # Permitir salida a Internet si es necesario
+    internal: false  
     ipam:
       driver: default
       config:
@@ -136,11 +126,9 @@ networks:
     driver_opts:
       com.docker.network.bridge.name: br-backend
 
-# ============================================
-# Definición de Volúmenes
-# ============================================
+
 volumes:
-  # Volumen para persistencia de datos de Redis
+  
   redis-data:
     driver: local
     name: redis-persistent-data
@@ -149,7 +137,6 @@ volumes:
       o: bind
       device: ./data/redis
 
-  # Volumen para logs de Redis
   redis-logs:
     driver: local
     name: redis-logs
