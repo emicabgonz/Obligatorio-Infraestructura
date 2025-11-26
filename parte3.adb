@@ -154,6 +154,14 @@ procedure Parte3 is
          Ordenie.Entrar(Mi_Id);
          delay Duration(Random(Gen) * 3.0);
          Ordenie.Salir(Mi_Id);
+
+         Pasillo.Entrar;
+         Vacunacion.Entrar(Mi_Id, M);
+         Pasillo.Salir;
+         delay Duration(Random(Gen) * 2.0);
+         Pasillo.Entrar;
+         Vacunacion.Salir(Mi_Id, M);
+         Pasillo.Salir;
       end if;
 
       Camiones.Subir(Mi_Id);
