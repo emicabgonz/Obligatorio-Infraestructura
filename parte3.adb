@@ -141,9 +141,7 @@ procedure Parte3 is
       if (Mi_Id mod 2) = 0 then
          Pasillo.Entrar;
          Vacunacion.Entrar(Mi_Id, M);
-         Pasillo.Salir;
          delay Duration(Random(Gen) * 2.0);
-         Pasillo.Entrar;
          Vacunacion.Salir(Mi_Id, M);
          Pasillo.Salir;
 
@@ -157,9 +155,7 @@ procedure Parte3 is
 
          Pasillo.Entrar;
          Vacunacion.Entrar(Mi_Id, M);
-         Pasillo.Salir;
          delay Duration(Random(Gen) * 2.0);
-         Pasillo.Entrar;
          Vacunacion.Salir(Mi_Id, M);
          Pasillo.Salir;
       end if;
