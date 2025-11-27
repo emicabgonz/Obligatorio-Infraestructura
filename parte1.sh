@@ -93,8 +93,7 @@ vender_prod(){
 	echo "------------------"
 	i=1
 	while IFS=" - " read -r codigo tipo modelo descripcion cantidad precio; do
-		precio=$(echo "$precio" | tr -d '$')
-		echo "$i) $tipo - $modelo - \$$precio (stock: $cantidad)"
+		echo "$i) $tipo - $modelo - $precio (stock: $cantidad)"
 		i=$((i+1))
 	done < productos.txt
 
