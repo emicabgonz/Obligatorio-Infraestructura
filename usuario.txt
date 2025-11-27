@@ -1,10 +1,4 @@
 admin:admin
 Emiliano:1234
-Quintana:1234
-Eugenia:9876
-Pepe:9876
-Juani:1234
-Maru:M55243865
-e:7890
-Mateo:mateo2004
-pepe1:pepe1
+Mateo:7890
+Belen:4321

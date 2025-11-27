@@ -54,7 +54,7 @@ cambiar_Contra(){
 		echo "Los password no coinciden."
 		return
 	fi
-	sed -i '' "s/^$usuario:$pass_actual\$/$usuario:$nueva_pass/" "$USERS_FILE"
+	sed -i "s/^$usuario:$pass_actual\$/$usuario:$nueva_pass/" "$USERS_FILE"
 
 	echo "Password actualizado"
 }
@@ -124,7 +124,7 @@ vender_prod(){
 		subtotal=$((precio_num * cant_compra))
 		total=$((total + subtotal))
 
-		sed -i '' "${num}s/|$cantidad|/|$nuevo_stock|/" productos.txt
+		sed -i "${num}s#|$cantidad|#|$nuevo_stock|#" productos.txt
 		resumen+="$tipo - $modelo - $cant_compra unidades - \$$subtotal\n"
 	done
 
