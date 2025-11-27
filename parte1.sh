@@ -54,7 +54,7 @@ cambiar_Contra(){
 		echo "Los password no coinciden."
 		return
 	fi
-	sed -i "s/^$usuario:$pass_actual\$/$usuario:$nueva_pass/" "$USERS_FILE"
+	sed -i '' "s/^$usuario:$pass_actual\$/$usuario:$nueva_pass/" "$USERS_FILE"
 
 	echo "Password actualizado"
 }
@@ -74,7 +74,7 @@ ingresar_producto(){
 	read -p "Precio unitario ($): " precio
 
 	codigo=$(echo "$tipo" | cut -c1-3 | tr '[:lower:]' '[:upper:]')
-	echo "$codigo - $tipo - $modelo - $descripcion - $cantidad - \$$precio" >> productos.txt
+	echo "$codigo|$tipo|$modelo|$descripcion|$cantidad|$precio" >> productos.txt
 	echo "Producto agregado correctamente."
 }
 
@@ -92,8 +92,8 @@ vender_prod(){
 	echo "Lista Productos"
 	echo "------------------"
 	i=1
-	while IFS=" - " read -r codigo tipo modelo descripcion cantidad precio; do
-		echo "$i) $tipo - $modelo - $precio (stock: $cantidad)"
+	while IFS="|" read -r codigo tipo modelo descripcion cantidad precio; do
+		echo "$i) $tipo - $modelo - \$$precio (stock: $cantidad)"
 		i=$((i+1))
 	done < productos.txt
 
@@ -111,7 +111,7 @@ vender_prod(){
 			echo "El numero $num no corresponde a ningun producto"
 			continue
 		fi
-		IFS=" - " read -r codigo tipo modelo descripcion cantidad precio <<< "$producto"
+		IFS="|" read -r codigo tipo modelo descripcion cantidad precio <<< "$producto"
 		read -p "Cantidad a comprar de '$modelo': " cant_compra
 
 		if (( cant_compra > cantidad )); then
@@ -120,12 +120,12 @@ vender_prod(){
 		fi
 
 		nuevo_stock=$((cantidad - cant_compra))
-		precio_num=$(echo "$precio" | tr -d '$ ')
+		precio_num=$(echo "$precio" | tr -d '$' | xargs)
 		subtotal=$((precio_num * cant_compra))
 		total=$((total + subtotal))
 
-		sed -i "${num}s/ - $cantidad - / - $nuevo_stock - /" productos.txt
-		resumen+="$tipo - $modelo - $cant_compra unidades - $subtotal\n"
+		sed -i '' "${num}s/|$cantidad|/|$nuevo_stock|/" productos.txt
+		resumen+="$tipo - $modelo - $cant_compra unidades - \$$subtotal\n"
 	done
 
 
@@ -155,9 +155,19 @@ filtrar_prod(){
 	echo "--------------------------"
 
 	if [ -z "$filtro" ]; then
-		cat productos.txt
+		i=1
+		while IFS="|" read -r codigo tipo modelo descripcion cantidad precio; do
+			echo "$i) $tipo - $modelo - \$$precio (stock: $cantidad)"
+			i=$((i+1))
+		done < productos.txt
 	else
-		grep -i " - $filtro - " productos.txt || echo "No se encontraron productos del tipo '$filtro'."
+		i=1
+		while IFS="|" read -r codigo tipo modelo descripcion cantidad precio; do
+			if [[ "$tipo" == *"$filtro"* ]]; then
+				echo "$i) $tipo - $modelo - \$$precio (stock: $cantidad)"
+			fi
+			i=$((i+1))
+		done < productos.txt || echo "No se encontraron productos del tipo '$filtro'."
 	fi
 }
 
@@ -174,7 +184,7 @@ crear_repor(){
 	Archivos="Datos/datos.csv"
 	echo "Codigo,Tipo,Modelo,Descripcion,Cantidad,Precio" > "$Archivos"
 
-	while IFS=" - " read -r codigo tipo modelo descripcion cantidad precio; do
+	while IFS="|" read -r codigo tipo modelo descripcion cantidad precio; do
 		codigo=$(echo "$codigo" | tr -cd '[:alnum:]')
 		tipo=$(echo "$tipo" | tr -cd '[:alnum:]')
 		modelo=$(echo "$modelo" |  tr -cd '[:alnum:]')
